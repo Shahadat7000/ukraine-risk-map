@@ -75,3 +75,8 @@ Interactive map showing:
 - Active combat proximity
 - Strategic targets
 - Occupied regions
+## Demo
+
+![Ukraine Risk Map](screenshot.png)
+
+
