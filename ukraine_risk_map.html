@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_cbe17e94a3cb0ddc40715b518caa5346 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+        <div style="position: fixed; bottom: 30px; left: 30px; width: 180px; 
+                    background:white; padding: 10px; border: 1px solid #ccc; border-radius:5px; z-index:9999; font-size:11px; font-family:Arial;">
+            <b>Risk Prediction Model</b><br>
+            <span style="color:#c0392b;">●</span> Critical (90-100%)<br>
+            <span style="color:#e67e22;">●</span> High Risk (60-89%)<br>
+            <span style="color:#f1c40f;">●</span> Medium Alert (30-59%)<br>
+            <span style="color:#27ae60;">●</span> Low Risk (0-29%)<br>
+            <span style="color:#2c3e50;">●</span> Occupied City (100%)<br>
+            <span style="background:#e74c3c; opacity:0.4; padding:0 5px;">&nbsp;&nbsp;&nbsp;</span> Occupied Zone
+        </div>
+        
+    
+            <div class="folium-map" id="map_cbe17e94a3cb0ddc40715b518caa5346" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_cbe17e94a3cb0ddc40715b518caa5346 = L.map(
+                "map_cbe17e94a3cb0ddc40715b518caa5346",
+                {
+                    center: [48.3, 36.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_d23c6bc44c5568f8830315a283e7d2d0 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_d23c6bc44c5568f8830315a283e7d2d0.addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+            var polygon_7960fa665818d82a52853a1cabc6b4aa = L.polygon(
+                [[49.9, 38.5], [49.5, 38.2], [49.0, 38.0], [48.6, 38.0], [48.3, 38.0], [48.0, 37.7], [47.7, 37.2], [47.4, 35.8], [47.4, 34.6], [46.5, 33.0], [46.5, 31.8], [46.0, 32.0], [44.5, 33.0], [44.3, 34.0], [45.3, 36.5], [47.0, 39.0], [49.0, 40.0], [49.9, 38.5]],
+                {"bubblingMouseEvents": true, "color": "#c0392b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_e263f4fb9e4169a2e1252a21099c5cd4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f11049a49c2aecd5c59456031eadaa1 = $(`<div id="html_5f11049a49c2aecd5c59456031eadaa1" style="width: 100.0%; height: 100.0%;">Russian Occupied Territory</div>`)[0];
+                popup_e263f4fb9e4169a2e1252a21099c5cd4.setContent(html_5f11049a49c2aecd5c59456031eadaa1);
+            
+        
+
+        polygon_7960fa665818d82a52853a1cabc6b4aa.bindPopup(popup_e263f4fb9e4169a2e1252a21099c5cd4)
+        ;
+
+        
+    
+    
+            var circle_marker_277a2299fe1765660df23a6ae08bd69f = L.circleMarker(
+                [50.45, 30.523333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_fbff0febe93b8c8a2d025dc404732d7e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7cf6c3dba91fbb353a0c105e1fce80d9 = $(`<div id="html_7cf6c3dba91fbb353a0c105e1fce80d9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Kyiv             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">15% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 442 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_fbff0febe93b8c8a2d025dc404732d7e.setContent(html_7cf6c3dba91fbb353a0c105e1fce80d9);
+            
+        
+
+        circle_marker_277a2299fe1765660df23a6ae08bd69f.bindPopup(popup_fbff0febe93b8c8a2d025dc404732d7e)
+        ;
+
+        
+    
+    
+            circle_marker_277a2299fe1765660df23a6ae08bd69f.bindTooltip(
+                `<div>
+                     Kyiv (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2db488025c56af068caaade85d8274ec = L.circleMarker(
+                [50.004444, 36.231389],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e67e22", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_e42926fa8c46fe09599fee964efec4c6 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_96d3af4eedb6e31893308bb0e167d806 = $(`<div id="html_96d3af4eedb6e31893308bb0e167d806" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #e67e22; color:#e67e22; text-transform:uppercase;">                 Kharkiv             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">60% (HIGH)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Clashes at Starytsya. Heavy shelling."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 103 km | Timeline: Contested: > 7 Days             </div>         </div>         </div>`)[0];
+                popup_e42926fa8c46fe09599fee964efec4c6.setContent(html_96d3af4eedb6e31893308bb0e167d806);
+            
+        
+
+        circle_marker_2db488025c56af068caaade85d8274ec.bindPopup(popup_e42926fa8c46fe09599fee964efec4c6)
+        ;
+
+        
+    
+    
+            circle_marker_2db488025c56af068caaade85d8274ec.bindTooltip(
+                `<div>
+                     Kharkiv (HIGH)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_54be22dba68b38a439e39add990809b9 = L.circleMarker(
+                [46.485722, 30.743444],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_9fe2c08216c7289b56b2a1f8ac12a157 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_787935533b79050666ff94daa82dad2f = $(`<div id="html_787935533b79050666ff94daa82dad2f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Odesa             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">18% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 150 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_9fe2c08216c7289b56b2a1f8ac12a157.setContent(html_787935533b79050666ff94daa82dad2f);
+            
+        
+
+        circle_marker_54be22dba68b38a439e39add990809b9.bindPopup(popup_9fe2c08216c7289b56b2a1f8ac12a157)
+        ;
+
+        
+    
+    
+            circle_marker_54be22dba68b38a439e39add990809b9.bindTooltip(
+                `<div>
+                     Odesa (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1782182d87a81635b6e2e09f2e2af526 = L.circleMarker(
+                [48.45, 34.983333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_c3ae26cccb59dcfde9b601a290ab6fef = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_91194737594dde23f4bb097dcd60f4a7 = $(`<div id="html_91194737594dde23f4bb097dcd60f4a7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #f1c40f; color:#f1c40f; text-transform:uppercase;">                 Dnipro             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">55% (MEDIUM)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Missile strikes reported."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 109 km | Timeline: Contested: > 7 Days             </div>         </div>         </div>`)[0];
+                popup_c3ae26cccb59dcfde9b601a290ab6fef.setContent(html_91194737594dde23f4bb097dcd60f4a7);
+            
+        
+
+        circle_marker_1782182d87a81635b6e2e09f2e2af526.bindPopup(popup_c3ae26cccb59dcfde9b601a290ab6fef)
+        ;
+
+        
+    
+    
+            circle_marker_1782182d87a81635b6e2e09f2e2af526.bindTooltip(
+                `<div>
+                     Dnipro (MEDIUM)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3c100a5a77c75efa2d63dd03d9a3450a = L.circleMarker(
+                [48.008889, 37.804167],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_922d2fca34e6b0ca59fede23c1327d77 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_954d588c7d2e1eef4fa52610e59de1ad = $(`<div id="html_954d588c7d2e1eef4fa52610e59de1ad" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Donetsk                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_922d2fca34e6b0ca59fede23c1327d77.setContent(html_954d588c7d2e1eef4fa52610e59de1ad);
+            
+        
+
+        circle_marker_3c100a5a77c75efa2d63dd03d9a3450a.bindPopup(popup_922d2fca34e6b0ca59fede23c1327d77)
+        ;
+
+        
+    
+    
+            circle_marker_3c100a5a77c75efa2d63dd03d9a3450a.bindTooltip(
+                `<div>
+                     Donetsk (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_012a54b8f900ab47a1f239f0b40f40d4 = L.circleMarker(
+                [49.841944, 24.031667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_72d9c0cf12bc03be4483a3a3a2b57f10 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_765703ab516ce5113ab968500237e51f = $(`<div id="html_765703ab516ce5113ab968500237e51f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Lviv             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 732 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_72d9c0cf12bc03be4483a3a3a2b57f10.setContent(html_765703ab516ce5113ab968500237e51f);
+            
+        
+
+        circle_marker_012a54b8f900ab47a1f239f0b40f40d4.bindPopup(popup_72d9c0cf12bc03be4483a3a3a2b57f10)
+        ;
+
+        
+    
+    
+            circle_marker_012a54b8f900ab47a1f239f0b40f40d4.bindTooltip(
+                `<div>
+                     Lviv (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dcaa34dbf7083fe81a910fab5810a420 = L.circleMarker(
+                [47.837778, 35.138333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e67e22", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_deecb3762617ad907e1b3fb6df4d9b32 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_eca6d80a1ac0dee807a89f2b43ee9195 = $(`<div id="html_eca6d80a1ac0dee807a89f2b43ee9195" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #e67e22; color:#e67e22; text-transform:uppercase;">                 Zaporizhzhia             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">75% (HIGH)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Explosions. Energy infra repairs."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 55 km | Timeline: High Risk: < 7 Days             </div>         </div>         </div>`)[0];
+                popup_deecb3762617ad907e1b3fb6df4d9b32.setContent(html_eca6d80a1ac0dee807a89f2b43ee9195);
+            
+        
+
+        circle_marker_dcaa34dbf7083fe81a910fab5810a420.bindPopup(popup_deecb3762617ad907e1b3fb6df4d9b32)
+        ;
+
+        
+    
+    
+            circle_marker_dcaa34dbf7083fe81a910fab5810a420.bindTooltip(
+                `<div>
+                     Zaporizhzhia (HIGH)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d5e268299dd9c498fae26b5b80bc303c = L.circleMarker(
+                [47.91, 33.391667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_0311f9fc576be7bcb413870719477122 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_17ead76fa138093a5ec3eaf2301ad86e = $(`<div id="html_17ead76fa138093a5ec3eaf2301ad86e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #f1c40f; color:#f1c40f; text-transform:uppercase;">                 Kryvyi Rih             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">53% (MEDIUM)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Frequent missile/drone alerts."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 101 km | Timeline: Contested: > 7 Days             </div>         </div>         </div>`)[0];
+                popup_0311f9fc576be7bcb413870719477122.setContent(html_17ead76fa138093a5ec3eaf2301ad86e);
+            
+        
+
+        circle_marker_d5e268299dd9c498fae26b5b80bc303c.bindPopup(popup_0311f9fc576be7bcb413870719477122)
+        ;
+
+        
+    
+    
+            circle_marker_d5e268299dd9c498fae26b5b80bc303c.bindTooltip(
+                `<div>
+                     Kryvyi Rih (MEDIUM)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4b76f49ea997a89f38cb7f590fab9bbe = L.circleMarker(
+                [44.6, 33.533333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_ac077750557da68b17f57e51303a27c5 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7661ab052dea857af7a39ef3a8f24793 = $(`<div id="html_7661ab052dea857af7a39ef3a8f24793" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Sevastopol                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_ac077750557da68b17f57e51303a27c5.setContent(html_7661ab052dea857af7a39ef3a8f24793);
+            
+        
+
+        circle_marker_4b76f49ea997a89f38cb7f590fab9bbe.bindPopup(popup_ac077750557da68b17f57e51303a27c5)
+        ;
+
+        
+    
+    
+            circle_marker_4b76f49ea997a89f38cb7f590fab9bbe.bindTooltip(
+                `<div>
+                     Sevastopol (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4492e37fe5a1add36e57dd544ee81367 = L.circleMarker(
+                [46.966667, 32.0],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_96f9286486ec83be156dd5530bec7525 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_10041522550bac2af77ae3e9d8fe1d68 = $(`<div id="html_10041522550bac2af77ae3e9d8fe1d68" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #f1c40f; color:#f1c40f; text-transform:uppercase;">                 Mykolaiv             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">55% (MEDIUM)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 63 km | Timeline: Contested: > 7 Days             </div>         </div>         </div>`)[0];
+                popup_96f9286486ec83be156dd5530bec7525.setContent(html_10041522550bac2af77ae3e9d8fe1d68);
+            
+        
+
+        circle_marker_4492e37fe5a1add36e57dd544ee81367.bindPopup(popup_96f9286486ec83be156dd5530bec7525)
+        ;
+
+        
+    
+    
+            circle_marker_4492e37fe5a1add36e57dd544ee81367.bindTooltip(
+                `<div>
+                     Mykolaiv (MEDIUM)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e30cf94c3ef9700e1c7bd49ea72a784c = L.circleMarker(
+                [47.095833, 37.549444],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_ef536998f73c84ad383f8bb513fc04f8 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9dd3ec890231b5bb65eef1663f46255f = $(`<div id="html_9dd3ec890231b5bb65eef1663f46255f" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Mariupol                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_ef536998f73c84ad383f8bb513fc04f8.setContent(html_9dd3ec890231b5bb65eef1663f46255f);
+            
+        
+
+        circle_marker_e30cf94c3ef9700e1c7bd49ea72a784c.bindPopup(popup_ef536998f73c84ad383f8bb513fc04f8)
+        ;
+
+        
+    
+    
+            circle_marker_e30cf94c3ef9700e1c7bd49ea72a784c.bindTooltip(
+                `<div>
+                     Mariupol (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7cafe97a928b36cdcd2d3d6f4c258e9c = L.circleMarker(
+                [48.57, 39.33],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_04a596c8a858a0f970201b8152cd7240 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_f35dbbdb87e7c564106ea25178bc098a = $(`<div id="html_f35dbbdb87e7c564106ea25178bc098a" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Luhansk                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_04a596c8a858a0f970201b8152cd7240.setContent(html_f35dbbdb87e7c564106ea25178bc098a);
+            
+        
+
+        circle_marker_7cafe97a928b36cdcd2d3d6f4c258e9c.bindPopup(popup_04a596c8a858a0f970201b8152cd7240)
+        ;
+
+        
+    
+    
+            circle_marker_7cafe97a928b36cdcd2d3d6f4c258e9c.bindTooltip(
+                `<div>
+                     Luhansk (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2348b34cb63e4b86f3301af552265c64 = L.circleMarker(
+                [49.233333, 28.483333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_17000aa750a75849d24eff182a464d5e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_cf68146668917069198e8f2724a75fc9 = $(`<div id="html_cf68146668917069198e8f2724a75fc9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Vinnytsia             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 425 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_17000aa750a75849d24eff182a464d5e.setContent(html_cf68146668917069198e8f2724a75fc9);
+            
+        
+
+        circle_marker_2348b34cb63e4b86f3301af552265c64.bindPopup(popup_17000aa750a75849d24eff182a464d5e)
+        ;
+
+        
+    
+    
+            circle_marker_2348b34cb63e4b86f3301af552265c64.bindTooltip(
+                `<div>
+                     Vinnytsia (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a6ecb2db063a85186d42cfa26b982d94 = L.circleMarker(
+                [44.948376, 34.100039],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_09717d0ea02bbb9366f2bf066eb107ac = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_43d8aea44cd36b2565e98f056c327083 = $(`<div id="html_43d8aea44cd36b2565e98f056c327083" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Simferopol                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_09717d0ea02bbb9366f2bf066eb107ac.setContent(html_43d8aea44cd36b2565e98f056c327083);
+            
+        
+
+        circle_marker_a6ecb2db063a85186d42cfa26b982d94.bindPopup(popup_09717d0ea02bbb9366f2bf066eb107ac)
+        ;
+
+        
+    
+    
+            circle_marker_a6ecb2db063a85186d42cfa26b982d94.bindTooltip(
+                `<div>
+                     Simferopol (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1ea21364c68e18cd244762ecc4551826 = L.circleMarker(
+                [48.055556, 37.961111],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_9746496e702654dd9e26f202522ce03f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a4005393d04034c42a5b4168d393e0d1 = $(`<div id="html_a4005393d04034c42a5b4168d393e0d1" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Makiivka                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_9746496e702654dd9e26f202522ce03f.setContent(html_a4005393d04034c42a5b4168d393e0d1);
+            
+        
+
+        circle_marker_1ea21364c68e18cd244762ecc4551826.bindPopup(popup_9746496e702654dd9e26f202522ce03f)
+        ;
+
+        
+    
+    
+            circle_marker_1ea21364c68e18cd244762ecc4551826.bindTooltip(
+                `<div>
+                     Makiivka (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1b7f5cdb2ec86a7edd9d7a227d49cb30 = L.circleMarker(
+                [51.5, 31.3],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_0fed183cf5c4e90e9461c648c9bfe463 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6ae86cfee6a02b559dfe860cb5a6feee = $(`<div id="html_6ae86cfee6a02b559dfe860cb5a6feee" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Chernihiv             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 487 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_0fed183cf5c4e90e9461c648c9bfe463.setContent(html_6ae86cfee6a02b559dfe860cb5a6feee);
+            
+        
+
+        circle_marker_1b7f5cdb2ec86a7edd9d7a227d49cb30.bindPopup(popup_0fed183cf5c4e90e9461c648c9bfe463)
+        ;
+
+        
+    
+    
+            circle_marker_1b7f5cdb2ec86a7edd9d7a227d49cb30.bindTooltip(
+                `<div>
+                     Chernihiv (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_90c1b160d305c6d43a9926e2915043ab = L.circleMarker(
+                [49.589444, 34.551389],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_a533bf06f4aa2b0b949f0d0583464af2 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_f0a2214017b8d8309c1d3ea89a1662d2 = $(`<div id="html_f0a2214017b8d8309c1d3ea89a1662d2" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Poltava             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 219 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_a533bf06f4aa2b0b949f0d0583464af2.setContent(html_f0a2214017b8d8309c1d3ea89a1662d2);
+            
+        
+
+        circle_marker_90c1b160d305c6d43a9926e2915043ab.bindPopup(popup_a533bf06f4aa2b0b949f0d0583464af2)
+        ;
+
+        
+    
+    
+            circle_marker_90c1b160d305c6d43a9926e2915043ab.bindTooltip(
+                `<div>
+                     Poltava (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_753ee881dcf9a682c68b21a3eca9c069 = L.circleMarker(
+                [46.633333, 32.6],
+                {"bubblingMouseEvents": true, "color": "#c0392b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 0}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+            var circle_marker_3c5996a61c44056e2f1e95f03c102f3d = L.circleMarker(
+                [46.633333, 32.6],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_9b3325e9c501ad3c7d5334bb99281c86 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_91630728fe1f8fdda8e8d044c8ed31e8 = $(`<div id="html_91630728fe1f8fdda8e8d044c8ed31e8" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #c0392b; color:#c0392b; text-transform:uppercase;">                 Kherson             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">90% (CRITICAL)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Active Combat ⚔</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 7 km | Timeline: CRITICAL: < 48 Hours             </div>         </div>         </div>`)[0];
+                popup_9b3325e9c501ad3c7d5334bb99281c86.setContent(html_91630728fe1f8fdda8e8d044c8ed31e8);
+            
+        
+
+        circle_marker_3c5996a61c44056e2f1e95f03c102f3d.bindPopup(popup_9b3325e9c501ad3c7d5334bb99281c86)
+        ;
+
+        
+    
+    
+            circle_marker_3c5996a61c44056e2f1e95f03c102f3d.bindTooltip(
+                `<div>
+                     Kherson (CRITICAL)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c18a7fbc615426dbf7c18828a60f7185 = L.circleMarker(
+                [49.416667, 27.0],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_011ddd5e1d345771bc985b8eff16e3b9 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_f8579faf94c7726a828e97f4d1261724 = $(`<div id="html_f8579faf94c7726a828e97f4d1261724" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Khmelnytskyi             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 523 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_011ddd5e1d345771bc985b8eff16e3b9.setContent(html_f8579faf94c7726a828e97f4d1261724);
+            
+        
+
+        circle_marker_c18a7fbc615426dbf7c18828a60f7185.bindPopup(popup_011ddd5e1d345771bc985b8eff16e3b9)
+        ;
+
+        
+    
+    
+            circle_marker_c18a7fbc615426dbf7c18828a60f7185.bindTooltip(
+                `<div>
+                     Khmelnytskyi (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_755166611d6fdefa436db7953108d1ab = L.circleMarker(
+                [49.444444, 32.059722],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_2f1f24aac9320dd86a2dfde24ba90c73 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b61fbd9558b1bd09d5f2c551c5143d67 = $(`<div id="html_b61fbd9558b1bd09d5f2c551c5143d67" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Cherkasy             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 286 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_2f1f24aac9320dd86a2dfde24ba90c73.setContent(html_b61fbd9558b1bd09d5f2c551c5143d67);
+            
+        
+
+        circle_marker_755166611d6fdefa436db7953108d1ab.bindPopup(popup_2f1f24aac9320dd86a2dfde24ba90c73)
+        ;
+
+        
+    
+    
+            circle_marker_755166611d6fdefa436db7953108d1ab.bindTooltip(
+                `<div>
+                     Cherkasy (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_563d22c7e977e618ce74428fc59ef7f2 = L.circleMarker(
+                [48.3, 25.933333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_e8401386a633b18499612b9db4f21512 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6317414b4b7c687fd7ba1de62103a86c = $(`<div id="html_6317414b4b7c687fd7ba1de62103a86c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Chernivtsi             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 540 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_e8401386a633b18499612b9db4f21512.setContent(html_6317414b4b7c687fd7ba1de62103a86c);
+            
+        
+
+        circle_marker_563d22c7e977e618ce74428fc59ef7f2.bindPopup(popup_e8401386a633b18499612b9db4f21512)
+        ;
+
+        
+    
+    
+            circle_marker_563d22c7e977e618ce74428fc59ef7f2.bindTooltip(
+                `<div>
+                     Chernivtsi (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e0cb3eb6baad8586c2d8def11fb430db = L.circleMarker(
+                [50.25, 28.666667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_5b5967b38343bf85744610f371b8a02e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c1cec9c1a46c02f7b946e4f1d1e4c78e = $(`<div id="html_c1cec9c1a46c02f7b946e4f1d1e4c78e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Zhytomyr             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 498 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_5b5967b38343bf85744610f371b8a02e.setContent(html_c1cec9c1a46c02f7b946e4f1d1e4c78e);
+            
+        
+
+        circle_marker_e0cb3eb6baad8586c2d8def11fb430db.bindPopup(popup_5b5967b38343bf85744610f371b8a02e)
+        ;
+
+        
+    
+    
+            circle_marker_e0cb3eb6baad8586c2d8def11fb430db.bindTooltip(
+                `<div>
+                     Zhytomyr (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ebb904bf4b1380885224127893214d1d = L.circleMarker(
+                [50.916667, 34.75],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_ff3ee4e6d67fa6f63315413031a75877 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9eabaf31741aa730b345042c2b698cb1 = $(`<div id="html_9eabaf31741aa730b345042c2b698cb1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Sumy             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 243 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_ff3ee4e6d67fa6f63315413031a75877.setContent(html_9eabaf31741aa730b345042c2b698cb1);
+            
+        
+
+        circle_marker_ebb904bf4b1380885224127893214d1d.bindPopup(popup_ff3ee4e6d67fa6f63315413031a75877)
+        ;
+
+        
+    
+    
+            circle_marker_ebb904bf4b1380885224127893214d1d.bindTooltip(
+                `<div>
+                     Sumy (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9f5ec5a2868172f6e08473854a00aaa7 = L.circleMarker(
+                [50.616667, 26.25],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_087b6560fdd4e1269d7c1ff203a51972 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c6fe979a94e7981e7e7208c1d4e82814 = $(`<div id="html_c6fe979a94e7981e7e7208c1d4e82814" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Rivne             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 647 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_087b6560fdd4e1269d7c1ff203a51972.setContent(html_c6fe979a94e7981e7e7208c1d4e82814);
+            
+        
+
+        circle_marker_9f5ec5a2868172f6e08473854a00aaa7.bindPopup(popup_087b6560fdd4e1269d7c1ff203a51972)
+        ;
+
+        
+    
+    
+            circle_marker_9f5ec5a2868172f6e08473854a00aaa7.bindTooltip(
+                `<div>
+                     Rivne (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c5295906f20d8e785448fe55911992ae = L.circleMarker(
+                [48.3, 38.05],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_796a0a75197bc94d2036aac865f76ae3 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_5be30415c83b1481c542e3e2910a9394 = $(`<div id="html_5be30415c83b1481c542e3e2910a9394" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Horlivka                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_796a0a75197bc94d2036aac865f76ae3.setContent(html_5be30415c83b1481c542e3e2910a9394);
+            
+        
+
+        circle_marker_c5295906f20d8e785448fe55911992ae.bindPopup(popup_796a0a75197bc94d2036aac865f76ae3)
+        ;
+
+        
+    
+    
+            circle_marker_c5295906f20d8e785448fe55911992ae.bindTooltip(
+                `<div>
+                     Horlivka (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_09e1ae979322b038184b52da09fc893c = L.circleMarker(
+                [48.922778, 24.710556],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_787f879424ec6c685d615371cf3b6bb9 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_0623a0c066f2af7e0c3050b44a378a34 = $(`<div id="html_0623a0c066f2af7e0c3050b44a378a34" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Ivano-Frankivsk             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 647 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_787f879424ec6c685d615371cf3b6bb9.setContent(html_0623a0c066f2af7e0c3050b44a378a34);
+            
+        
+
+        circle_marker_09e1ae979322b038184b52da09fc893c.bindPopup(popup_787f879424ec6c685d615371cf3b6bb9)
+        ;
+
+        
+    
+    
+            circle_marker_09e1ae979322b038184b52da09fc893c.bindTooltip(
+                `<div>
+                     Ivano-Frankivsk (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cedd223446447b939d7bbaed03c662d8 = L.circleMarker(
+                [48.516667, 34.616667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_03b08a9654036650086bfc9da8c9b8bb = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_cf84cce50ea042311b63d59b2928b878 = $(`<div id="html_cf84cce50ea042311b63d59b2928b878" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #f1c40f; color:#f1c40f; text-transform:uppercase;">                 Kamianske             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:orange; font-size:14px; font-weight:bold; float:right;">45% (MEDIUM)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Industrial hub. Air alert zone."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 113 km | Timeline: Contested: > 7 Days             </div>         </div>         </div>`)[0];
+                popup_03b08a9654036650086bfc9da8c9b8bb.setContent(html_cf84cce50ea042311b63d59b2928b878);
+            
+        
+
+        circle_marker_cedd223446447b939d7bbaed03c662d8.bindPopup(popup_03b08a9654036650086bfc9da8c9b8bb)
+        ;
+
+        
+    
+    
+            circle_marker_cedd223446447b939d7bbaed03c662d8.bindTooltip(
+                `<div>
+                     Kamianske (MEDIUM)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2108dba0c83255f3169bbc673983a9ca = L.circleMarker(
+                [49.566667, 25.6],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_abecc605e7f3d63f50df3859bf40cfa1 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3e4a69c445d1e1b980c8abcbaf15506f = $(`<div id="html_3e4a69c445d1e1b980c8abcbaf15506f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Ternopil             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 618 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_abecc605e7f3d63f50df3859bf40cfa1.setContent(html_3e4a69c445d1e1b980c8abcbaf15506f);
+            
+        
+
+        circle_marker_2108dba0c83255f3169bbc673983a9ca.bindPopup(popup_abecc605e7f3d63f50df3859bf40cfa1)
+        ;
+
+        
+    
+    
+            circle_marker_2108dba0c83255f3169bbc673983a9ca.bindTooltip(
+                `<div>
+                     Ternopil (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7fea565fd19eb5470a9086ac4b7b09c7 = L.circleMarker(
+                [48.5, 32.266667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_5671c647e95ceff5cf3c2a5469e06fc5 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9bf13ae51a184659bddabf12146e6e90 = $(`<div id="html_9bf13ae51a184659bddabf12146e6e90" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Kropyvnytskyi             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 206 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_5671c647e95ceff5cf3c2a5469e06fc5.setContent(html_9bf13ae51a184659bddabf12146e6e90);
+            
+        
+
+        circle_marker_7fea565fd19eb5470a9086ac4b7b09c7.bindPopup(popup_5671c647e95ceff5cf3c2a5469e06fc5)
+        ;
+
+        
+    
+    
+            circle_marker_7fea565fd19eb5470a9086ac4b7b09c7.bindTooltip(
+                `<div>
+                     Kropyvnytskyi (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7b8ece40316b541be6584fe7e9a6d098 = L.circleMarker(
+                [50.75, 25.333333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_969b1f25736398ddf508c45c7fef1ccc = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_d661c7025babb399037aecad5167eab1 = $(`<div id="html_d661c7025babb399037aecad5167eab1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Lutsk             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 706 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_969b1f25736398ddf508c45c7fef1ccc.setContent(html_d661c7025babb399037aecad5167eab1);
+            
+        
+
+        circle_marker_7b8ece40316b541be6584fe7e9a6d098.bindPopup(popup_969b1f25736398ddf508c45c7fef1ccc)
+        ;
+
+        
+    
+    
+            circle_marker_7b8ece40316b541be6584fe7e9a6d098.bindTooltip(
+                `<div>
+                     Lutsk (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d5ae97a997b8bab01f32533756ceea8b = L.circleMarker(
+                [49.063056, 33.403889],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_53c0aa79ba1f5c582cdf2afecf127ace = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c136b24496cda3ae5e3f99f2ad4b355b = $(`<div id="html_c136b24496cda3ae5e3f99f2ad4b355b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Kremenchuk             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 195 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_53c0aa79ba1f5c582cdf2afecf127ace.setContent(html_c136b24496cda3ae5e3f99f2ad4b355b);
+            
+        
+
+        circle_marker_d5ae97a997b8bab01f32533756ceea8b.bindPopup(popup_53c0aa79ba1f5c582cdf2afecf127ace)
+        ;
+
+        
+    
+    
+            circle_marker_d5ae97a997b8bab01f32533756ceea8b.bindTooltip(
+                `<div>
+                     Kremenchuk (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_991915c99491ddbd4b8a08bb0e2fbfa7 = L.circleMarker(
+                [49.795556, 30.116667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_10b17ef2952bd14f994a5c245cc8844f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_cb15cd6cbb0abcd0c1f53106685116c4 = $(`<div id="html_cb15cd6cbb0abcd0c1f53106685116c4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Bila Tserkva             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 398 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_10b17ef2952bd14f994a5c245cc8844f.setContent(html_cb15cd6cbb0abcd0c1f53106685116c4);
+            
+        
+
+        circle_marker_991915c99491ddbd4b8a08bb0e2fbfa7.bindPopup(popup_10b17ef2952bd14f994a5c245cc8844f)
+        ;
+
+        
+    
+    
+            circle_marker_991915c99491ddbd4b8a08bb0e2fbfa7.bindTooltip(
+                `<div>
+                     Bila Tserkva (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f9fee827fd67981b5421855ab7ca59b2 = L.circleMarker(
+                [45.361944, 36.471111],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_210b39bbec52a96bb6b7d94871e3f722 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b9c2e5a584548260b5ef848f7765bd8e = $(`<div id="html_b9c2e5a584548260b5ef848f7765bd8e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Kerch                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_210b39bbec52a96bb6b7d94871e3f722.setContent(html_b9c2e5a584548260b5ef848f7765bd8e);
+            
+        
+
+        circle_marker_f9fee827fd67981b5421855ab7ca59b2.bindPopup(popup_210b39bbec52a96bb6b7d94871e3f722)
+        ;
+
+        
+    
+    
+            circle_marker_f9fee827fd67981b5421855ab7ca59b2.bindTooltip(
+                `<div>
+                     Kerch (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6de7350d11f16ccd652b48a5bfab3619 = L.circleMarker(
+                [46.848889, 35.3675],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_38a74612e279e21a29f2753a98bc8319 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_d84663242168b76b60526660717ef694 = $(`<div id="html_d84663242168b76b60526660717ef694" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Melitopol                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_38a74612e279e21a29f2753a98bc8319.setContent(html_d84663242168b76b60526660717ef694);
+            
+        
+
+        circle_marker_6de7350d11f16ccd652b48a5bfab3619.bindPopup(popup_38a74612e279e21a29f2753a98bc8319)
+        ;
+
+        
+    
+    
+            circle_marker_6de7350d11f16ccd652b48a5bfab3619.bindTooltip(
+                `<div>
+                     Melitopol (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_972c07ef0d83f13416d3eef39bc19e10 = L.circleMarker(
+                [48.739167, 37.584167],
+                {"bubblingMouseEvents": true, "color": "#c0392b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 0}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+            var circle_marker_a582500cfd5fc6d27560681875a40e0c = L.circleMarker(
+                [48.739167, 37.584167],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_ea44a8e04749e989d895dcf3f240e673 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b9d9fdd43b2371c930b1d812a567b289 = $(`<div id="html_b9d9fdd43b2371c930b1d812a567b289" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #c0392b; color:#c0392b; text-transform:uppercase;">                 Kramatorsk             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">99% (CRITICAL)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Active frontline combat near Orikhovo."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 25 km | Timeline: CRITICAL: < 48 Hours             </div>         </div>         </div>`)[0];
+                popup_ea44a8e04749e989d895dcf3f240e673.setContent(html_b9d9fdd43b2371c930b1d812a567b289);
+            
+        
+
+        circle_marker_a582500cfd5fc6d27560681875a40e0c.bindPopup(popup_ea44a8e04749e989d895dcf3f240e673)
+        ;
+
+        
+    
+    
+            circle_marker_a582500cfd5fc6d27560681875a40e0c.bindTooltip(
+                `<div>
+                     Kramatorsk (CRITICAL)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dd135a1198b1675b451f04405d4626a3 = L.circleMarker(
+                [48.623889, 22.295],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_7ab69117183e0b83a18b539919b10f15 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_aabf42d5721c60da3d8b8e498a028823 = $(`<div id="html_aabf42d5721c60da3d8b8e498a028823" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Uzhhorod             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 809 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_7ab69117183e0b83a18b539919b10f15.setContent(html_aabf42d5721c60da3d8b8e498a028823);
+            
+        
+
+        circle_marker_dd135a1198b1675b451f04405d4626a3.bindPopup(popup_7ab69117183e0b83a18b539919b10f15)
+        ;
+
+        
+    
+    
+            circle_marker_dd135a1198b1675b451f04405d4626a3.bindTooltip(
+                `<div>
+                     Uzhhorod (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_45b711b33b482737d842904fe94f5202 = L.circleMarker(
+                [50.511111, 30.79],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_135121bc8d2fc87a3b171a4ade092d44 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6add0d1167b93f7abb95b215f7106f7e = $(`<div id="html_6add0d1167b93f7abb95b215f7106f7e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Brovary             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 435 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_135121bc8d2fc87a3b171a4ade092d44.setContent(html_6add0d1167b93f7abb95b215f7106f7e);
+            
+        
+
+        circle_marker_45b711b33b482737d842904fe94f5202.bindPopup(popup_135121bc8d2fc87a3b171a4ade092d44)
+        ;
+
+        
+    
+    
+            circle_marker_45b711b33b482737d842904fe94f5202.bindTooltip(
+                `<div>
+                     Brovary (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9a1ced555f165aa686f21af012a461f3 = L.circleMarker(
+                [45.2, 33.358333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_6a88374f5ee8d473810ce44ad9146700 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3e690e8ff32d2fc75247ab6ef894cbac = $(`<div id="html_3e690e8ff32d2fc75247ab6ef894cbac" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Yevpatoriia                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_6a88374f5ee8d473810ce44ad9146700.setContent(html_3e690e8ff32d2fc75247ab6ef894cbac);
+            
+        
+
+        circle_marker_9a1ced555f165aa686f21af012a461f3.bindPopup(popup_6a88374f5ee8d473810ce44ad9146700)
+        ;
+
+        
+    
+    
+            circle_marker_9a1ced555f165aa686f21af012a461f3.bindTooltip(
+                `<div>
+                     Yevpatoriia (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_123d02406cd46545fbc4ad720bf3d446 = L.circleMarker(
+                [46.755556, 36.788889],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_e4117917372413115f0ca3cdf4713aca = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_d9ffd8f91f8fbe435012edbdc381e472 = $(`<div id="html_d9ffd8f91f8fbe435012edbdc381e472" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Berdiansk                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_e4117917372413115f0ca3cdf4713aca.setContent(html_d9ffd8f91f8fbe435012edbdc381e472);
+            
+        
+
+        circle_marker_123d02406cd46545fbc4ad720bf3d446.bindPopup(popup_e4117917372413115f0ca3cdf4713aca)
+        ;
+
+        
+    
+    
+            circle_marker_123d02406cd46545fbc4ad720bf3d446.bindTooltip(
+                `<div>
+                     Berdiansk (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1977e13223da56fe9009a0b931cb8ae5 = L.circleMarker(
+                [48.467778, 38.798333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_586f4e6a504ebd9c5253245cec8c6f9a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_88c4cf1bc002aa74e30188c5fdc5a57c = $(`<div id="html_88c4cf1bc002aa74e30188c5fdc5a57c" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Alchevsk                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_586f4e6a504ebd9c5253245cec8c6f9a.setContent(html_88c4cf1bc002aa74e30188c5fdc5a57c);
+            
+        
+
+        circle_marker_1977e13223da56fe9009a0b931cb8ae5.bindPopup(popup_586f4e6a504ebd9c5253245cec8c6f9a)
+        ;
+
+        
+    
+    
+            circle_marker_1977e13223da56fe9009a0b931cb8ae5.bindTooltip(
+                `<div>
+                     Alchevsk (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c2dc2d4998df59f4a02bdfdca7f8dff4 = L.circleMarker(
+                [47.566667, 34.4],
+                {"bubblingMouseEvents": true, "color": "#c0392b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 0}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+            var circle_marker_1da0f6ecd9421d476e1062ee98ebf4d5 = L.circleMarker(
+                [47.566667, 34.4],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_1b541906e723ecb06ed5accfeaa993e1 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_8a2cd41e6f83ce746dd11bf3a1609e5f = $(`<div id="html_8a2cd41e6f83ce746dd11bf3a1609e5f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #c0392b; color:#c0392b; text-transform:uppercase;">                 Nikopol             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">90% (CRITICAL)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Artillery shelling across Dnipro."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 16 km | Timeline: CRITICAL: < 48 Hours             </div>         </div>         </div>`)[0];
+                popup_1b541906e723ecb06ed5accfeaa993e1.setContent(html_8a2cd41e6f83ce746dd11bf3a1609e5f);
+            
+        
+
+        circle_marker_1da0f6ecd9421d476e1062ee98ebf4d5.bindPopup(popup_1b541906e723ecb06ed5accfeaa993e1)
+        ;
+
+        
+    
+    
+            circle_marker_1da0f6ecd9421d476e1062ee98ebf4d5.bindTooltip(
+                `<div>
+                     Nikopol (CRITICAL)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_960e5fb2ca9735719e166972161b1b6d = L.circleMarker(
+                [48.87, 37.625],
+                {"bubblingMouseEvents": true, "color": "#c0392b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 0}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+            var circle_marker_996f2f2c8733f08fea640cdfc4127a8b = L.circleMarker(
+                [48.87, 37.625],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_23c816bc30bcae60467417a6c7477c97 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_70b5d7180d9c9b2131ca5350c1fb2ecb = $(`<div id="html_70b5d7180d9c9b2131ca5350c1fb2ecb" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #c0392b; color:#c0392b; text-transform:uppercase;">                 Sloviansk             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">99% (CRITICAL)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Clashes near Yampil."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 35 km | Timeline: CRITICAL: < 48 Hours             </div>         </div>         </div>`)[0];
+                popup_23c816bc30bcae60467417a6c7477c97.setContent(html_70b5d7180d9c9b2131ca5350c1fb2ecb);
+            
+        
+
+        circle_marker_996f2f2c8733f08fea640cdfc4127a8b.bindPopup(popup_23c816bc30bcae60467417a6c7477c97)
+        ;
+
+        
+    
+    
+            circle_marker_996f2f2c8733f08fea640cdfc4127a8b.bindTooltip(
+                `<div>
+                     Sloviansk (CRITICAL)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_439921e1085f5de8cabdcd0891d961a5 = L.circleMarker(
+                [48.516667, 35.866667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_6ec8cbd8ba0a0f2b597ac9bef28b1cde = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b469797b66bf758d94332533ebc06cb1 = $(`<div id="html_b469797b66bf758d94332533ebc06cb1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #f1c40f; color:#f1c40f; text-transform:uppercase;">                 Pavlohrad             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:orange; font-size:14px; font-weight:bold; float:right;">30% (MEDIUM)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 102 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_6ec8cbd8ba0a0f2b597ac9bef28b1cde.setContent(html_b469797b66bf758d94332533ebc06cb1);
+            
+        
+
+        circle_marker_439921e1085f5de8cabdcd0891d961a5.bindPopup(popup_6ec8cbd8ba0a0f2b597ac9bef28b1cde)
+        ;
+
+        
+    
+    
+            circle_marker_439921e1085f5de8cabdcd0891d961a5.bindTooltip(
+                `<div>
+                     Pavlohrad (MEDIUM)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_205f85bcde1eced91dd7689386ce25fd = L.circleMarker(
+                [48.948056, 38.493333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_aa747ed42e3f738e76a96ca64d32ad65 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_25a166b69eaaf350949debea799faa45 = $(`<div id="html_25a166b69eaaf350949debea799faa45" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Sievierodonetsk                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_aa747ed42e3f738e76a96ca64d32ad65.setContent(html_25a166b69eaaf350949debea799faa45);
+            
+        
+
+        circle_marker_205f85bcde1eced91dd7689386ce25fd.bindPopup(popup_aa747ed42e3f738e76a96ca64d32ad65)
+        ;
+
+        
+    
+    
+            circle_marker_205f85bcde1eced91dd7689386ce25fd.bindTooltip(
+                `<div>
+                     Sievierodonetsk (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1630d4526d6e4fef823e21b053010cb8 = L.circleMarker(
+                [48.6833, 26.5833],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_cbf6febe3c55597ac4d1976bc3aba791 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7ba0501113756bc18aaa430b52a3776f = $(`<div id="html_7ba0501113756bc18aaa430b52a3776f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Kamianets-Podilskyi             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 510 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_cbf6febe3c55597ac4d1976bc3aba791.setContent(html_7ba0501113756bc18aaa430b52a3776f);
+            
+        
+
+        circle_marker_1630d4526d6e4fef823e21b053010cb8.bindPopup(popup_cbf6febe3c55597ac4d1976bc3aba791)
+        ;
+
+        
+    
+    
+            circle_marker_1630d4526d6e4fef823e21b053010cb8.bindTooltip(
+                `<div>
+                     Kamianets-Podilskyi (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_72e10f7022297435fab4141821d37aae = L.circleMarker(
+                [48.916667, 38.4],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_5d8c66a945dcf4e021d8364839bc9be7 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_ce0f11eaaedd5915ded6b902d3c89329 = $(`<div id="html_ce0f11eaaedd5915ded6b902d3c89329" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Lysychansk                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_5d8c66a945dcf4e021d8364839bc9be7.setContent(html_ce0f11eaaedd5915ded6b902d3c89329);
+            
+        
+
+        circle_marker_72e10f7022297435fab4141821d37aae.bindPopup(popup_5d8c66a945dcf4e021d8364839bc9be7)
+        ;
+
+        
+    
+    
+            circle_marker_72e10f7022297435fab4141821d37aae.bindTooltip(
+                `<div>
+                     Lysychansk (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e2fbbe1b8776e7223fbd6d370a8dcb77 = L.circleMarker(
+                [48.45, 22.716667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_59395464a4f51bfe2687c04b2897a066 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_434d2c1920f8731d3c2a7f052054f8fd = $(`<div id="html_434d2c1920f8731d3c2a7f052054f8fd" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Mukacheve             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 774 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_59395464a4f51bfe2687c04b2897a066.setContent(html_434d2c1920f8731d3c2a7f052054f8fd);
+            
+        
+
+        circle_marker_e2fbbe1b8776e7223fbd6d370a8dcb77.bindPopup(popup_59395464a4f51bfe2687c04b2897a066)
+        ;
+
+        
+    
+    
+            circle_marker_e2fbbe1b8776e7223fbd6d370a8dcb77.bindTooltip(
+                `<div>
+                     Mukacheve (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f6a13eece9bc6eb69122529c06336e73 = L.circleMarker(
+                [51.216667, 33.2],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_2f0ec6598a529deb57c0e320d07f5159 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7f207d0dea95a0965f7e7cdda20d3eaf = $(`<div id="html_7f207d0dea95a0965f7e7cdda20d3eaf" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Konotop             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 354 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_2f0ec6598a529deb57c0e320d07f5159.setContent(html_7f207d0dea95a0965f7e7cdda20d3eaf);
+            
+        
+
+        circle_marker_f6a13eece9bc6eb69122529c06336e73.bindPopup(popup_2f0ec6598a529deb57c0e320d07f5159)
+        ;
+
+        
+    
+    
+            circle_marker_f6a13eece9bc6eb69122529c06336e73.bindTooltip(
+                `<div>
+                     Konotop (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e425478d282e5f08eb686c75e368cf4b = L.circleMarker(
+                [48.75, 30.216667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_3baa0b733f97afb42b86be1f1e08ab5a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b3b00972406a3ec72c4b36149eada95e = $(`<div id="html_b3b00972406a3ec72c4b36149eada95e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Uman             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 298 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_3baa0b733f97afb42b86be1f1e08ab5a.setContent(html_b3b00972406a3ec72c4b36149eada95e);
+            
+        
+
+        circle_marker_e425478d282e5f08eb686c75e368cf4b.bindPopup(popup_3baa0b733f97afb42b86be1f1e08ab5a)
+        ;
+
+        
+    
+    
+            circle_marker_e425478d282e5f08eb686c75e368cf4b.bindTooltip(
+                `<div>
+                     Uman (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ff304499bc5f6a4be35225cdd6de98c9 = L.circleMarker(
+                [48.121389, 38.945278],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_6a9263fbfce382d551405e0a4fc03850 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3a87724b194817155d77edf966eb4989 = $(`<div id="html_3a87724b194817155d77edf966eb4989" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Khrustalnyi                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_6a9263fbfce382d551405e0a4fc03850.setContent(html_3a87724b194817155d77edf966eb4989);
+            
+        
+
+        circle_marker_ff304499bc5f6a4be35225cdd6de98c9.bindPopup(popup_6a9263fbfce382d551405e0a4fc03850)
+        ;
+
+        
+    
+    
+            circle_marker_ff304499bc5f6a4be35225cdd6de98c9.bindTooltip(
+                `<div>
+                     Khrustalnyi (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7e3a184e388684bd114030cda5d15b8a = L.circleMarker(
+                [48.231111, 38.205278],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_be8fba30d67fa01add82018012efe47e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_dff1eb71136b5f4a8b9c178edf2c307e = $(`<div id="html_dff1eb71136b5f4a8b9c178edf2c307e" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Yenakiieve                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_be8fba30d67fa01add82018012efe47e.setContent(html_dff1eb71136b5f4a8b9c178edf2c307e);
+            
+        
+
+        circle_marker_7e3a184e388684bd114030cda5d15b8a.bindPopup(popup_be8fba30d67fa01add82018012efe47e)
+        ;
+
+        
+    
+    
+            circle_marker_7e3a184e388684bd114030cda5d15b8a.bindTooltip(
+                `<div>
+                     Yenakiieve (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e61418ed83325064d709e6ea0467f438 = L.circleMarker(
+                [48.666667, 33.116667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_75c9e3b4e54806abc3b2d44b6659c015 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_0a23ae986256d6109a18349d542a08d9 = $(`<div id="html_0a23ae986256d6109a18349d542a08d9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Oleksandriia             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 170 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_75c9e3b4e54806abc3b2d44b6659c015.setContent(html_0a23ae986256d6109a18349d542a08d9);
+            
+        
+
+        circle_marker_e61418ed83325064d709e6ea0467f438.bindPopup(popup_75c9e3b4e54806abc3b2d44b6659c015)
+        ;
+
+        
+    
+    
+            circle_marker_e61418ed83325064d709e6ea0467f438.bindTooltip(
+                `<div>
+                     Oleksandriia (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ce0dbcbce292c2a45f568e257af38c6c = L.circleMarker(
+                [44.499444, 34.155],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_638bf98c645fce8755ab1aaefc8ce404 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1cf63c96b7610dcc7c59488103aa4cf9 = $(`<div id="html_1cf63c96b7610dcc7c59488103aa4cf9" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Yalta                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_638bf98c645fce8755ab1aaefc8ce404.setContent(html_1cf63c96b7610dcc7c59488103aa4cf9);
+            
+        
+
+        circle_marker_ce0dbcbce292c2a45f568e257af38c6c.bindPopup(popup_638bf98c645fce8755ab1aaefc8ce404)
+        ;
+
+        
+    
+    
+            circle_marker_ce0dbcbce292c2a45f568e257af38c6c.bindTooltip(
+                `<div>
+                     Yalta (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9bb50378c3e37400faeaec56599d8983 = L.circleMarker(
+                [49.35, 23.5],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_9a84c53954863f2dd03586d2d4256ae9 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a6748dc5172986a13b962e1e0c4b0a35 = $(`<div id="html_a6748dc5172986a13b962e1e0c4b0a35" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Drohobych             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 746 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_9a84c53954863f2dd03586d2d4256ae9.setContent(html_a6748dc5172986a13b962e1e0c4b0a35);
+            
+        
+
+        circle_marker_9bb50378c3e37400faeaec56599d8983.bindPopup(popup_9a84c53954863f2dd03586d2d4256ae9)
+        ;
+
+        
+    
+    
+            circle_marker_9bb50378c3e37400faeaec56599d8983.bindTooltip(
+                `<div>
+                     Drohobych (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_695deb906a36c47fa7252b486691fe82 = L.circleMarker(
+                [48.533333, 38.65],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_fc894b18929ce6e19bd1dda5b5a9cd16 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_57d55114f5d484e33c2d6dd710740a3b = $(`<div id="html_57d55114f5d484e33c2d6dd710740a3b" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Kadiivka                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_fc894b18929ce6e19bd1dda5b5a9cd16.setContent(html_57d55114f5d484e33c2d6dd710740a3b);
+            
+        
+
+        circle_marker_695deb906a36c47fa7252b486691fe82.bindPopup(popup_fc894b18929ce6e19bd1dda5b5a9cd16)
+        ;
+
+        
+    
+    
+            circle_marker_695deb906a36c47fa7252b486691fe82.bindTooltip(
+                `<div>
+                     Kadiivka (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5d86fa1c323e0737546b8945fa3956e9 = L.circleMarker(
+                [49.891944, 28.6],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_d046b66365b22629648bc37ab65f7d6c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a7340ec5c35f8a99dca32bc28a3bc495 = $(`<div id="html_a7340ec5c35f8a99dca32bc28a3bc495" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Berdychiv             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 471 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_d046b66365b22629648bc37ab65f7d6c.setContent(html_a7340ec5c35f8a99dca32bc28a3bc495);
+            
+        
+
+        circle_marker_5d86fa1c323e0737546b8945fa3956e9.bindPopup(popup_d046b66365b22629648bc37ab65f7d6c)
+        ;
+
+        
+    
+    
+            circle_marker_5d86fa1c323e0737546b8945fa3956e9.bindTooltip(
+                `<div>
+                     Berdychiv (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_28e3fd610b820da0b93a04e4fd486072 = L.circleMarker(
+                [51.866667, 33.483333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_5d25ac935a5fe799d9890f24fab903dc = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_cba3f46ef8375063502787f776d29051 = $(`<div id="html_cba3f46ef8375063502787f776d29051" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Shostka             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 376 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_5d25ac935a5fe799d9890f24fab903dc.setContent(html_cba3f46ef8375063502787f776d29051);
+            
+        
+
+        circle_marker_28e3fd610b820da0b93a04e4fd486072.bindPopup(popup_5d25ac935a5fe799d9890f24fab903dc)
+        ;
+
+        
+    
+    
+            circle_marker_28e3fd610b820da0b93a04e4fd486072.bindTooltip(
+                `<div>
+                     Shostka (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f822a4afb2200ec630382c701be66319 = L.circleMarker(
+                [48.594722, 37.998333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_b691e1c27a753c5703f2fc99a1b83bd1 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_5dd3b4767bef420e4246c9fdd10bc4d9 = $(`<div id="html_5dd3b4767bef420e4246c9fdd10bc4d9" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Bakhmut                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_b691e1c27a753c5703f2fc99a1b83bd1.setContent(html_5dd3b4767bef420e4246c9fdd10bc4d9);
+            
+        
+
+        circle_marker_f822a4afb2200ec630382c701be66319.bindPopup(popup_b691e1c27a753c5703f2fc99a1b83bd1)
+        ;
+
+        
+    
+    
+            circle_marker_f822a4afb2200ec630382c701be66319.bindTooltip(
+                `<div>
+                     Bakhmut (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2c373528b843875e99ccbd234470a0c4 = L.circleMarker(
+                [45.35, 28.833889],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_c30a712457aa0a5b4d5806852ec4c019 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_686e16d062f56e9b084b39417c2d8e1c = $(`<div id="html_686e16d062f56e9b084b39417c2d8e1c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Izmail             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 331 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_c30a712457aa0a5b4d5806852ec4c019.setContent(html_686e16d062f56e9b084b39417c2d8e1c);
+            
+        
+
+        circle_marker_2c373528b843875e99ccbd234470a0c4.bindPopup(popup_c30a712457aa0a5b4d5806852ec4c019)
+        ;
+
+        
+    
+    
+            circle_marker_2c373528b843875e99ccbd234470a0c4.bindTooltip(
+                `<div>
+                     Izmail (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d4ee9bdc87eb17f98f44e578b41eadfc = L.circleMarker(
+                [48.633333, 35.216667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_6dbca73109da4060e4dec1623f373984 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3075eb180a02105ccb1a6a534454e263 = $(`<div id="html_3075eb180a02105ccb1a6a534454e263" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #f1c40f; color:#f1c40f; text-transform:uppercase;">                 Samar             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:orange; font-size:14px; font-weight:bold; float:right;">45% (MEDIUM)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Strategic proximity to front. Missile threat."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 134 km | Timeline: Contested: > 7 Days             </div>         </div>         </div>`)[0];
+                popup_6dbca73109da4060e4dec1623f373984.setContent(html_3075eb180a02105ccb1a6a534454e263);
+            
+        
+
+        circle_marker_d4ee9bdc87eb17f98f44e578b41eadfc.bindPopup(popup_6dbca73109da4060e4dec1623f373984)
+        ;
+
+        
+    
+    
+            circle_marker_d4ee9bdc87eb17f98f44e578b41eadfc.bindTooltip(
+                `<div>
+                     Samar (MEDIUM)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_caf9a3e964773bb5aecc64f9fea82c88 = L.circleMarker(
+                [51.216667, 24.716667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_fc48edbc891bce9c58c065345c5cc450 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_5ab2b6a46ff4eab2f7745048e1ad86f5 = $(`<div id="html_5ab2b6a46ff4eab2f7745048e1ad86f5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Kovel             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 772 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_fc48edbc891bce9c58c065345c5cc450.setContent(html_5ab2b6a46ff4eab2f7745048e1ad86f5);
+            
+        
+
+        circle_marker_caf9a3e964773bb5aecc64f9fea82c88.bindPopup(popup_fc48edbc891bce9c58c065345c5cc450)
+        ;
+
+        
+    
+    
+            circle_marker_caf9a3e964773bb5aecc64f9fea82c88.bindTooltip(
+                `<div>
+                     Kovel (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7928800c67c07fe62a2eddca7ebef4e9 = L.circleMarker(
+                [45.048889, 35.379167],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_79b56347dfa45c3bcfbe24cdecd5e986 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_97fc41999ac873067900fc1975c2e2cd = $(`<div id="html_97fc41999ac873067900fc1975c2e2cd" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Feodosiia                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_79b56347dfa45c3bcfbe24cdecd5e986.setContent(html_97fc41999ac873067900fc1975c2e2cd);
+            
+        
+
+        circle_marker_7928800c67c07fe62a2eddca7ebef4e9.bindPopup(popup_79b56347dfa45c3bcfbe24cdecd5e986)
+        ;
+
+        
+    
+    
+            circle_marker_7928800c67c07fe62a2eddca7ebef4e9.bindTooltip(
+                `<div>
+                     Feodosiia (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_364cb940dfc3a3d777880c79b64aebad = L.circleMarker(
+                [48.533333, 37.716667],
+                {"bubblingMouseEvents": true, "color": "#c0392b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 0}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+            var circle_marker_cd442981a8767fad9f975999886c5f8c = L.circleMarker(
+                [48.533333, 37.716667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_e1408768dd758dee87829dee46ffbab0 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_fcd567f74811df99565a8adf97697bbf = $(`<div id="html_fcd567f74811df99565a8adf97697bbf" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #c0392b; color:#c0392b; text-transform:uppercase;">                 Kostiantynivka             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">90% (CRITICAL)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Active Combat ⚔</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 11 km | Timeline: CRITICAL: < 48 Hours             </div>         </div>         </div>`)[0];
+                popup_e1408768dd758dee87829dee46ffbab0.setContent(html_fcd567f74811df99565a8adf97697bbf);
+            
+        
+
+        circle_marker_cd442981a8767fad9f975999886c5f8c.bindPopup(popup_e1408768dd758dee87829dee46ffbab0)
+        ;
+
+        
+    
+    
+            circle_marker_cd442981a8767fad9f975999886c5f8c.bindTooltip(
+                `<div>
+                     Kostiantynivka (CRITICAL)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3ee3a052b2a6e0816d80dbae079c0aa3 = L.circleMarker(
+                [51.047222, 31.880556],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_b7b24e27e3c0b4733cdbac4c01193b8d = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_82918d0d4ea25ead329e4fc45dd5af97 = $(`<div id="html_82918d0d4ea25ead329e4fc45dd5af97" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Nizhyn             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 432 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_b7b24e27e3c0b4733cdbac4c01193b8d.setContent(html_82918d0d4ea25ead329e4fc45dd5af97);
+            
+        
+
+        circle_marker_3ee3a052b2a6e0816d80dbae079c0aa3.bindPopup(popup_b7b24e27e3c0b4733cdbac4c01193b8d)
+        ;
+
+        
+    
+    
+            circle_marker_3ee3a052b2a6e0816d80dbae079c0aa3.bindTooltip(
+                `<div>
+                     Nizhyn (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_489631595e58eb4b6addce8924204644 = L.circleMarker(
+                [49.216667, 31.866667],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_e5bc6898f153e877586efed6c026db02 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_18f34fc5b7b0ffcb9db54881e3d5bea3 = $(`<div id="html_18f34fc5b7b0ffcb9db54881e3d5bea3" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Smila             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 277 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_e5bc6898f153e877586efed6c026db02.setContent(html_18f34fc5b7b0ffcb9db54881e3d5bea3);
+            
+        
+
+        circle_marker_489631595e58eb4b6addce8924204644.bindPopup(popup_e5bc6898f153e877586efed6c026db02)
+        ;
+
+        
+    
+    
+            circle_marker_489631595e58eb4b6addce8924204644.bindTooltip(
+                `<div>
+                     Smila (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a6775ecf44afe466b1602021e706211f = L.circleMarker(
+                [50.516667, 30.25],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_4a17c0835ed17ca9d3f46c55dcb80061 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_294870adee4e0ee33a0983776f70da18 = $(`<div id="html_294870adee4e0ee33a0983776f70da18" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Irpin             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 461 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_4a17c0835ed17ca9d3f46c55dcb80061.setContent(html_294870adee4e0ee33a0983776f70da18);
+            
+        
+
+        circle_marker_a6775ecf44afe466b1602021e706211f.bindPopup(popup_4a17c0835ed17ca9d3f46c55dcb80061)
+        ;
+
+        
+    
+    
+            circle_marker_a6775ecf44afe466b1602021e706211f.bindTooltip(
+                `<div>
+                     Irpin (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6aa22958db5d6d306544add171b91f9c = L.circleMarker(
+                [49.044444, 24.361111],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_a58d12eefcadc50936c24db07e1ffafc = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_f2fc11f41030f3e4682cd6a0e30b6594 = $(`<div id="html_f2fc11f41030f3e4682cd6a0e30b6594" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Kalush             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 676 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_a58d12eefcadc50936c24db07e1ffafc.setContent(html_f2fc11f41030f3e4682cd6a0e30b6594);
+            
+        
+
+        circle_marker_6aa22958db5d6d306544add171b91f9c.bindPopup(popup_a58d12eefcadc50936c24db07e1ffafc)
+        ;
+
+        
+    
+    
+            circle_marker_6aa22958db5d6d306544add171b91f9c.bindTooltip(
+                `<div>
+                     Kalush (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eae58465826bba5c1705991362eb8a62 = L.circleMarker(
+                [50.383333, 24.233333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_c96cbcb9afefcd6c17af96abbde3c8f2 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a9851fc7264bba0f60bc83c2b8d31271 = $(`<div id="html_a9851fc7264bba0f60bc83c2b8d31271" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Sheptytskyi             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 748 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_c96cbcb9afefcd6c17af96abbde3c8f2.setContent(html_a9851fc7264bba0f60bc83c2b8d31271);
+            
+        
+
+        circle_marker_eae58465826bba5c1705991362eb8a62.bindPopup(popup_c96cbcb9afefcd6c17af96abbde3c8f2)
+        ;
+
+        
+    
+    
+            circle_marker_eae58465826bba5c1705991362eb8a62.bindTooltip(
+                `<div>
+                     Sheptytskyi (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_25006e515045a2fe83746ca91a681357 = L.circleMarker(
+                [50.35, 30.95],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_8e995f55bf04ef0f24e96847f1321c1c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_d269f659e817380e06edd9ad5ae22073 = $(`<div id="html_d269f659e817380e06edd9ad5ae22073" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Boryspil             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 414 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_8e995f55bf04ef0f24e96847f1321c1c.setContent(html_d269f659e817380e06edd9ad5ae22073);
+            
+        
+
+        circle_marker_25006e515045a2fe83746ca91a681357.bindPopup(popup_8e995f55bf04ef0f24e96847f1321c1c)
+        ;
+
+        
+    
+    
+            circle_marker_25006e515045a2fe83746ca91a681357.bindTooltip(
+                `<div>
+                     Boryspil (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_84befd623bbaedcc7d1f8c98b99111b3 = L.circleMarker(
+                [48.083333, 39.65],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_3982a8ab5463445efbca2f4fccb57a62 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_24659a77813c15e5e4b42377eb3e2530 = $(`<div id="html_24659a77813c15e5e4b42377eb3e2530" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Dovzhansk                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_3982a8ab5463445efbca2f4fccb57a62.setContent(html_24659a77813c15e5e4b42377eb3e2530);
+            
+        
+
+        circle_marker_84befd623bbaedcc7d1f8c98b99111b3.bindPopup(popup_3982a8ab5463445efbca2f4fccb57a62)
+        ;
+
+        
+    
+    
+            circle_marker_84befd623bbaedcc7d1f8c98b99111b3.bindTooltip(
+                `<div>
+                     Dovzhansk (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_01d24f3f8958c2c86bb1e2eb3c2a34bf = L.circleMarker(
+                [48.05, 30.85],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_a81ef5d53cade5a59545251762f757bf = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_5a700586173fd39b0427237f9dab5a97 = $(`<div id="html_5a700586173fd39b0427237f9dab5a97" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Pervomaisk             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 208 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_a81ef5d53cade5a59545251762f757bf.setContent(html_5a700586173fd39b0427237f9dab5a97);
+            
+        
+
+        circle_marker_01d24f3f8958c2c86bb1e2eb3c2a34bf.bindPopup(popup_a81ef5d53cade5a59545251762f757bf)
+        ;
+
+        
+    
+    
+            circle_marker_01d24f3f8958c2c86bb1e2eb3c2a34bf.bindTooltip(
+                `<div>
+                     Pervomaisk (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_01f13a10f6a17c0b7eb19509d20ed789 = L.circleMarker(
+                [50.95, 28.65],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_052b13c25cea9ac3f021de01e543a176 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1f96c78c98b71a04e359d9d2baa3d775 = $(`<div id="html_1f96c78c98b71a04e359d9d2baa3d775" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Korosten             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 562 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_052b13c25cea9ac3f021de01e543a176.setContent(html_1f96c78c98b71a04e359d9d2baa3d775);
+            
+        
+
+        circle_marker_01f13a10f6a17c0b7eb19509d20ed789.bindPopup(popup_052b13c25cea9ac3f021de01e543a176)
+        ;
+
+        
+    
+    
+            circle_marker_01f13a10f6a17c0b7eb19509d20ed789.bindTooltip(
+                `<div>
+                     Korosten (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9abd80b48ca497b4beeb14889d1f3d3e = L.circleMarker(
+                [48.516667, 25.033333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_07b59eda2e9a19b6c4839a218a61d511 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e2ec8dcdbc762430977c15cefe163d02 = $(`<div id="html_e2ec8dcdbc762430977c15cefe163d02" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Kolomyia             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 611 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_07b59eda2e9a19b6c4839a218a61d511.setContent(html_e2ec8dcdbc762430977c15cefe163d02);
+            
+        
+
+        circle_marker_9abd80b48ca497b4beeb14889d1f3d3e.bindPopup(popup_07b59eda2e9a19b6c4839a218a61d511)
+        ;
+
+        
+    
+    
+            circle_marker_9abd80b48ca497b4beeb14889d1f3d3e.bindTooltip(
+                `<div>
+                     Kolomyia (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b50ba0834b7e6ed6fa9ff7006cc09399 = L.circleMarker(
+                [48.283333, 37.183333],
+                {"bubblingMouseEvents": true, "color": "#c0392b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 0}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+            var circle_marker_8b39248099bd46956df321e1cea3f996 = L.circleMarker(
+                [48.283333, 37.183333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c0392b", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_35c48ea7af852ec1a63033eee34f7165 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_af4680aa578ee7fa8393f48233de63a6 = $(`<div id="html_af4680aa578ee7fa8393f48233de63a6" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #c0392b; color:#c0392b; text-transform:uppercase;">                 Pokrovsk             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:red; font-size:14px; font-weight:bold; float:right;">99% (CRITICAL)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Active Combat ⚔</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Medium 🟠</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'>|||</span><span style='color:#ccc;'>|||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Heavy clashes near Rodynske. Critical defense."             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 3 km | Timeline: CRITICAL: < 48 Hours             </div>         </div>         </div>`)[0];
+                popup_35c48ea7af852ec1a63033eee34f7165.setContent(html_af4680aa578ee7fa8393f48233de63a6);
+            
+        
+
+        circle_marker_8b39248099bd46956df321e1cea3f996.bindPopup(popup_35c48ea7af852ec1a63033eee34f7165)
+        ;
+
+        
+    
+    
+            circle_marker_8b39248099bd46956df321e1cea3f996.bindTooltip(
+                `<div>
+                     Pokrovsk (CRITICAL)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_621cf919d2578c7fce618450646bd870 = L.circleMarker(
+                [49.25, 23.85],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_90d01395a92c3434f8f3b8b59c4c4a85 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_47fabec2035cae97ac2369c45a619f8b = $(`<div id="html_47fabec2035cae97ac2369c45a619f8b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Stryi             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 719 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_90d01395a92c3434f8f3b8b59c4c4a85.setContent(html_47fabec2035cae97ac2369c45a619f8b);
+            
+        
+
+        circle_marker_621cf919d2578c7fce618450646bd870.bindPopup(popup_90d01395a92c3434f8f3b8b59c4c4a85)
+        ;
+
+        
+    
+    
+            circle_marker_621cf919d2578c7fce618450646bd870.bindTooltip(
+                `<div>
+                     Stryi (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ebb6ea0dad4bee72ae52c66007d41e40 = L.circleMarker(
+                [46.301667, 30.656944],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#27ae60", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_f582418ad40eae99451bd9ae5e0a3ff7 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a7e51cf4ad2df6db8ab1160d8ac9e98e = $(`<div id="html_a7e51cf4ad2df6db8ab1160d8ac9e98e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">             <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #27ae60; color:#27ae60; text-transform:uppercase;">                 Chornomorsk             </h3>             <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                 <b>Risk Score:</b>                  <span style="color:green; font-size:14px; font-weight:bold; float:right;">10% (LOW)</span>             </div>             <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">                 <tr><td style="color:#555;">Momentum:</td><td style="font-weight:bold;">Stable ➡</td></tr>                 <tr><td style="color:#555;">Volatility:</td><td>Low 🟢</td></tr>                 <tr><td style="color:#555;">Intel Spike:</td><td><span style='color:red;'></span><span style='color:#ccc;'>||||||||||</span></td></tr>             </table>             <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                 "Monitoring"             </div>             <div style="font-size:10px; color:#777; margin-top:5px; text-align:right;">                 Range: 161 km | Timeline: Safe from Ground Assault             </div>         </div>         </div>`)[0];
+                popup_f582418ad40eae99451bd9ae5e0a3ff7.setContent(html_a7e51cf4ad2df6db8ab1160d8ac9e98e);
+            
+        
+
+        circle_marker_ebb6ea0dad4bee72ae52c66007d41e40.bindPopup(popup_f582418ad40eae99451bd9ae5e0a3ff7)
+        ;
+
+        
+    
+    
+            circle_marker_ebb6ea0dad4bee72ae52c66007d41e40.bindTooltip(
+                `<div>
+                     Chornomorsk (LOW)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_50f44613bdb53d2101a280deeb29bc1c = L.circleMarker(
+                [48.033333, 38.15],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2c3e50", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_cbe17e94a3cb0ddc40715b518caa5346);
+        
+    
+        var popup_0e0afa99ac67478dc17634068524cd45 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6a289f97781e3436ace20425861f7b6d = $(`<div id="html_6a289f97781e3436ace20425861f7b6d" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; width: 300px; font-size: 12px;">                 <h3 style="margin:0 0 8px 0; border-bottom: 3px solid #2c3e50; color:#2c3e50; text-transform:uppercase;">                     Khartsyzk                 </h3>                 <div style="background-color:#f0f0f0; padding:5px; margin-bottom:5px; border-radius:4px;">                     <b>Risk Score:</b>                      <span style="color:#2c3e50; font-size:14px; font-weight:bold; float:right;">100% (OCCUPIED)</span>                 </div>                 <div style="font-style:italic; color:#555; border-left: 2px solid #999; padding-left: 5px;">                     "Territory under Russian control"                 </div>             </div>             </div>`)[0];
+                popup_0e0afa99ac67478dc17634068524cd45.setContent(html_6a289f97781e3436ace20425861f7b6d);
+            
+        
+
+        circle_marker_50f44613bdb53d2101a280deeb29bc1c.bindPopup(popup_0e0afa99ac67478dc17634068524cd45)
+        ;
+
+        
+    
+    
+            circle_marker_50f44613bdb53d2101a280deeb29bc1c.bindTooltip(
+                `<div>
+                     Khartsyzk (OCCUPIED)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

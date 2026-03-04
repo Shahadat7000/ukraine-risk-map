@@ -1,0 +1,464 @@
+[
+  {
+    "name": "Kyiv",
+    "coordinates": { "lat": 50.45, "lon": 30.523333 },
+    "population": 2952301,
+    "terrain_description": "Split by Dnipro River; western side features Irpin River obstacle with limited crossing points; eastern side open with high-speed routes; agricultural outskirts with wooded areas; dam at hydroelectric plant creates reservoir to north."
+  },
+  {
+    "name": "Kharkiv",
+    "coordinates": { "lat": 50.004444, "lon": 36.231389 },
+    "population": 1421125,
+    "terrain_description": "Located in flat terrain near Russian border; large urban sprawl with Soviet-era industrial districts; extensive grid network facilitates urban combat; proximity to border made it initial invasion target."
+  },
+  {
+    "name": "Odesa",
+    "coordinates": { "lat": 46.485722, "lon": 30.743444 },
+    "population": 1010537,
+    "terrain_description": "Coastal city on Black Sea; catacombs network underground; port facilities and industrial areas; accessible primarily by land from west due to sea and estuary barriers."
+  },
+  {
+    "name": "Dnipro",
+    "coordinates": { "lat": 48.45, "lon": 34.983333 },
+    "population": 968502,
+    "terrain_description": "Spans both banks of Dnipro River; major industrial center with river port; strategic crossing point; hilly right bank overlooks left bank."
+  },
+  {
+    "name": "Donetsk",
+    "coordinates": { "lat": 48.008889, "lon": 37.804167 },
+    "population": 901645,
+    "terrain_description": "Located on high ground in Donbas; 'fortress belt' terrain favors defender with elevation advantage; observation and artillery coordination superior from city heights; downhill westward approach."
+  },
+  {
+    "name": "Lviv",
+    "coordinates": { "lat": 49.841944, "lon": 24.031667 },
+    "population": 717273,
+    "terrain_description": "Western Ukraine foothills; historic compact center with narrow streets; surrounded by wooded hills; rail hub; relatively untouched by ground combat."
+  },
+  {
+    "name": "Zaporizhzhia",
+    "coordinates": { "lat": 47.837778, "lon": 35.138333 },
+    "population": 710052,
+    "terrain_description": "On Dnipro River adjacent to Russian-controlled nuclear plant; industrial terrain with extensive factory complexes; Dnipro hydroelectric station creates crossing obstacle."
+  },
+  {
+    "name": "Kryvyi Rih",
+    "coordinates": { "lat": 47.91, "lon": 33.391667 },
+    "population": 603904,
+    "terrain_description": "Extremely elongated city stretching 126 km along iron ore deposits; industrial terrain with mines and tailings ponds; multiple water obstacles from Inhulets River."
+  },
+  {
+    "name": "Sevastopol",
+    "coordinates": { "lat": 44.6, "lon": 33.533333 },
+    "population": 547820,
+    "terrain_description": "Crimean port on multiple bays; mountainous peninsula terrain; naval base with fortified harbor; occupied since 2014."
+  },
+  {
+    "name": "Mykolaiv",
+    "coordinates": { "lat": 46.966667, "lon": 32.0 },
+    "population": 470011,
+    "terrain_description": "At confluence of Southern Buh and Inhul rivers; shipbuilding center; flat terrain with river obstacles; strategic crossing point toward Odesa."
+  },
+  {
+    "name": "Mariupol",
+    "coordinates": { "lat": 47.095833, "lon": 37.549444 },
+    "population": 425681,
+    "terrain_description": "Coastal city on Sea of Azov; Azovstal and Ilyich steel plants provided fortress-like defensive positions; extensive industrial underground structures; completely destroyed during siege."
+  },
+  {
+    "name": "Luhansk",
+    "coordinates": { "lat": 48.57, "lon": 39.33 },
+    "population": 397677,
+    "terrain_description": "Donbas region near Russian border; rolling hills with coal mining terrain; industrial urban landscape; occupied since 2014."
+  },
+  {
+    "name": "Vinnytsia",
+    "coordinates": { "lat": 49.233333, "lon": 28.483333 },
+    "population": 369739,
+    "terrain_description": "Southern Buh River valley; surrounded by agricultural land; airbase location; relatively central location away from front lines."
+  },
+  {
+    "name": "Simferopol",
+    "coordinates": { "lat": 44.948376, "lon": 34.100039 },
+    "population": 340540,
+    "terrain_description": "Crimean interior at Salhir River; surrounded by Crimean Mountains foothills; transport hub; occupied since 2014."
+  },
+  {
+    "name": "Makiivka",
+    "coordinates": { "lat": 48.055556, "lon": 37.961111 },
+    "population": 338968,
+    "terrain_description": "Donetsk suburban area/eastern contiguous urban zone; industrial terrain similar to Donetsk; coal mining infrastructure; occupied since 2014."
+  },
+  {
+    "name": "Chernihiv",
+    "coordinates": { "lat": 51.5, "lon": 31.3 },
+    "population": 282747,
+    "terrain_description": "Desna River valley near Belarus border; surrounded by forests and wetlands; river obstacles limited Russian armored approaches; besieged early in war."
+  },
+  {
+    "name": "Poltava",
+    "coordinates": { "lat": 49.589444, "lon": 34.551389 },
+    "population": 279593,
+    "terrain_description": "Vorskla River bank; elevated terrain with historic center on hill; agricultural surroundings; key logistics hub."
+  },
+  {
+    "name": "Kherson",
+    "coordinates": { "lat": 46.633333, "lon": 32.6 },
+    "population": 279131,
+    "terrain_description": "Dnipro River mouth on Black Sea; flat terrain with canals; opposite Russian-held east bank; contested crossing point; liberated November 2022."
+  },
+  {
+    "name": "Khmelnytskyi",
+    "coordinates": { "lat": 49.416667, "lon": 27.0 },
+    "population": 274452,
+    "terrain_description": "Southern Buh River; Podillia upland terrain; rail junction; western region away from front."
+  },
+  {
+    "name": "Cherkasy",
+    "coordinates": { "lat": 49.444444, "lon": 32.059722 },
+    "population": 269836,
+    "terrain_description": "Dnipro River reservoir bank; steep right bank overlooks left bank; industrial and transport hub."
+  },
+  {
+    "name": "Chernivtsi",
+    "coordinates": { "lat": 48.3, "lon": 25.933333 },
+    "population": 264298,
+    "terrain_description": "Carpathian foothills on Prut River; hilly terrain with mix of architectural styles; near Romanian border; safe from ground combat."
+  },
+  {
+    "name": "Zhytomyr",
+    "coordinates": { "lat": 50.25, "lon": 28.666667 },
+    "population": 261624,
+    "terrain_description": "Teteriv River valley; wooded area with granitic outcroppings; key transport node west of Kyiv; early war Russian advance reached outskirts."
+  },
+  {
+    "name": "Sumy",
+    "coordinates": { "lat": 50.916667, "lon": 34.75 },
+    "population": 256474,
+    "terrain_description": "Psel River near Russian border; flat agricultural terrain; surrounded by farmland; besieged early in war."
+  },
+  {
+    "name": "Rivne",
+    "coordinates": { "lat": 50.616667, "lon": 26.25 },
+    "population": 243873,
+    "terrain_description": "Ustia River valley; Polesian lowland with forests; northwestern Ukraine; transport hub away from front."
+  },
+  {
+    "name": "Horlivka",
+    "coordinates": { "lat": 48.3, "lon": 38.05 },
+    "population": 239828,
+    "terrain_description": "Donbas coal mining terrain; hilly industrial landscape with mine shafts; occupied since 2014."
+  },
+  {
+    "name": "Ivano-Frankivsk",
+    "coordinates": { "lat": 48.922778, "lon": 24.710556 },
+    "population": 238196,
+    "terrain_description": "Carpathian foothills on Bystrytsia River; hilly terrain; western Ukraine cultural center; unaffected by ground combat."
+  },
+  {
+    "name": "Kamianske",
+    "coordinates": { "lat": 48.516667, "lon": 34.616667 },
+    "population": 226845,
+    "terrain_description": "Dnipro River bank; industrial city with large steel plant; flat terrain with river obstacle."
+  },
+  {
+    "name": "Ternopil",
+    "coordinates": { "lat": 49.566667, "lon": 25.6 },
+    "population": 225004,
+    "terrain_description": "Seret River valley; pond-dotted terrain; historic center on island; western region away from front."
+  },
+  {
+    "name": "Kropyvnytskyi",
+    "coordinates": { "lat": 48.5, "lon": 32.266667 },
+    "population": 219676,
+    "terrain_description": "Inhul River; central Ukrainian upland; agricultural surroundings; logistics hub."
+  },
+  {
+    "name": "Lutsk",
+    "coordinates": { "lat": 50.75, "lon": 25.333333 },
+    "population": 215986,
+    "terrain_description": "Styr River; Volynian upland; historic castle; northwestern Ukraine near Polish border."
+  },
+  {
+    "name": "Kremenchuk",
+    "coordinates": { "lat": 49.063056, "lon": 33.403889 },
+    "population": 215271,
+    "terrain_description": "Dnipro River bank; major industrial center with oil refinery and rail car plant; flat terrain; strategic river crossing."
+  },
+  {
+    "name": "Bila Tserkva",
+    "coordinates": { "lat": 49.795556, "lon": 30.116667 },
+    "population": 207273,
+    "terrain_description": "Ros River; agricultural terrain south of Kyiv; large military base; early war staging area."
+  },
+  {
+    "name": "Kerch",
+    "coordinates": { "lat": 45.361944, "lon": 36.471111 },
+    "population": 154621,
+    "terrain_description": "Strait of Kerch between Crimea and Russia; hilly terrain at sea junction; Crimean Bridge connects to Russia; occupied since 2014."
+  },
+  {
+    "name": "Melitopol",
+    "coordinates": { "lat": 46.848889, "lon": 35.3675 },
+    "population": 148851,
+    "terrain_description": "Molochna River in steppe zone; flat agricultural terrain; key transport node; occupied since 2022."
+  },
+  {
+    "name": "Kramatorsk",
+    "coordinates": { "lat": 48.739167, "lon": 37.584167 },
+    "population": 147145,
+    "terrain_description": "Donbas region; hilly industrial terrain with machine building plants; Ukrainian administrative center for Donetsk Oblast; frequent shelling target."
+  },
+  {
+    "name": "Uzhhorod",
+    "coordinates": { "lat": 48.623889, "lon": 22.295 },
+    "population": 115449,
+    "terrain_description": "Carpathian Mountains foothills on Uzh River; near Slovak border; lowland valley surrounded by hills; safe from combat."
+  },
+  {
+    "name": "Brovary",
+    "coordinates": { "lat": 50.511111, "lon": 30.79 },
+    "population": 109806,
+    "terrain_description": "Kyiv eastern suburb; flat terrain on highway M01 approach to capital; site of major tank battle March 2022."
+  },
+  {
+    "name": "Yevpatoriia",
+    "coordinates": { "lat": 45.2, "lon": 33.358333 },
+    "population": 107877,
+    "terrain_description": "Crimean west coast on Black Sea; flat steppe coastal terrain; resort city; occupied since 2014."
+  },
+  {
+    "name": "Berdiansk",
+    "coordinates": { "lat": 46.755556, "lon": 36.788889 },
+    "population": 106311,
+    "terrain_description": "Azov Sea coast at Berda River mouth; flat coastal terrain with port; occupied since 2022."
+  },
+  {
+    "name": "Alchevsk",
+    "coordinates": { "lat": 48.467778, "lon": 38.798333 },
+    "population": 106062,
+    "terrain_description": "Donbas rolling hills; heavy industrial city with steel and metallurgy; occupied since 2014."
+  },
+  {
+    "name": "Nikopol",
+    "coordinates": { "lat": 47.566667, "lon": 34.4 },
+    "population": 105160,
+    "terrain_description": "Dnipro River bank opposite Russian-held Enerhodar; manganese mining center; flat terrain; frequent shelling across river."
+  },
+  {
+    "name": "Sloviansk",
+    "coordinates": { "lat": 48.87, "lon": 37.625 },
+    "population": 105141,
+    "terrain_description": "Donbas region with salt lakes; hilly terrain; strategic high ground; site of 2014 battle and 2022 frontline."
+  },
+  {
+    "name": "Pavlohrad",
+    "coordinates": { "lat": 48.516667, "lon": 35.866667 },
+    "population": 101430,
+    "terrain_description": "Steppe zone on Vovcha River; industrial and rail hub; flat terrain; strategic reserve area."
+  },
+  {
+    "name": "Sievierodonetsk",
+    "coordinates": { "lat": 48.948056, "lon": 38.493333 },
+    "population": 99067,
+    "terrain_description": "Donbas on Siverskyi Donets River; chemical industry city; flat terrain with river obstacle; completely destroyed during 2022 battle."
+  },
+  {
+    "name": "Kamianets-Podilskyi",
+    "coordinates": { "lat": 48.6833, "lon": 26.5833 },
+    "population": 96896,
+    "terrain_description": "Canyon of Smotrych River; castle on peninsula formed by river bend; rugged terrain with deep canyon; historic fortress city."
+  },
+  {
+    "name": "Lysychansk",
+    "coordinates": { "lat": 48.916667, "lon": 38.4 },
+    "population": 93340,
+    "terrain_description": "Donbas on Siverskyi Donets River high right bank; elevated terrain overlooks Sievierodonetsk; industrial and refinery center; fell June 2022."
+  },
+  {
+    "name": "Mukacheve",
+    "coordinates": { "lat": 48.45, "lon": 22.716667 },
+    "population": 85569,
+    "terrain_description": "Carpathian foothills on Latorica River; castle on volcanic hill; near Hungarian border; safe from combat."
+  },
+  {
+    "name": "Konotop",
+    "coordinates": { "lat": 51.216667, "lon": 33.2 },
+    "population": 83543,
+    "terrain_description": "Sumy Oblast near Russian border; flat agricultural terrain with river; early war Russian advance route."
+  },
+  {
+    "name": "Uman",
+    "coordinates": { "lat": 48.75, "lon": 30.216667 },
+    "population": 81525,
+    "terrain_description": "Cherkasy Oblast on Umanka River; hilly terrain with park; major Hasidic pilgrimage site; Hasidic pilgrimage site; key road junction."
+  },
+  {
+    "name": "Khrustalnyi",
+    "coordinates": { "lat": 48.121389, "lon": 38.945278 },
+    "population": 79533,
+    "terrain_description": "Donbas mining terrain; hilly industrial landscape; occupied since 2014."
+  },
+  {
+    "name": "Yenakiieve",
+    "coordinates": { "lat": 48.231111, "lon": 38.205278 },
+    "population": 76673,
+    "terrain_description": "Donbas industrial terrain with metallurgy; hilly mining landscape; occupied since 2014."
+  },
+  {
+    "name": "Oleksandriia",
+    "coordinates": { "lat": 48.666667, "lon": 33.116667 },
+    "population": 76097,
+    "terrain_description": "Kirovohrad Oblast on Inhulets River; flat terrain with lignite mining; agricultural surroundings."
+  },
+  {
+    "name": "Yalta",
+    "coordinates": { "lat": 44.499444, "lon": 34.155 },
+    "population": 74652,
+    "terrain_description": "Crimean south coast; mountainous coastal terrain with amphitheater layout; resort city; occupied since 2014."
+  },
+  {
+    "name": "Drohobych",
+    "coordinates": { "lat": 49.35, "lon": 23.5 },
+    "population": 73682,
+    "terrain_description": "Lviv Oblast in foothills; historic salt mining town; hilly terrain; western Ukraine away from front."
+  },
+  {
+    "name": "Kadiivka",
+    "coordinates": { "lat": 48.533333, "lon": 38.65 },
+    "population": 73248,
+    "terrain_description": "Donbas mining terrain; coal industry; occupied since 2014."
+  },
+  {
+    "name": "Berdychiv",
+    "coordinates": { "lat": 49.891944, "lon": 28.6 },
+    "population": 73046,
+    "terrain_description": "Zhytomyr Oblast on Hnylopiat River; rolling terrain; historic city; rail junction."
+  },
+  {
+    "name": "Shostka",
+    "coordinates": { "lat": 51.866667, "lon": 33.483333 },
+    "population": 71966,
+    "terrain_description": "Sumy Oblast near Russian border; flat terrain with chemical industry; early war Russian incursion area."
+  },
+  {
+    "name": "Bakhmut",
+    "coordinates": { "lat": 48.594722, "lon": 37.998333 },
+    "population": 71094,
+    "terrain_description": "Donetsk Oblast on Bakhmutka River; hilly industrial terrain with salt mines; site of longest and bloodiest battle of war; completely destroyed."
+  },
+  {
+    "name": "Izmail",
+    "coordinates": { "lat": 45.35, "lon": 28.833889 },
+    "population": 69932,
+    "terrain_description": "Danube River delta near Romanian border; port city on Chilia branch; flat terrain with fortress; UNESCO Biosphere Reserve nearby."
+  },
+  {
+    "name": "Samar",
+    "coordinates": { "lat": 48.633333, "lon": 35.216667 },
+    "population": 69855,
+    "terrain_description": "Dnipropetrovsk Oblast at Samara River confluence; flat terrain; industrial and rail center."
+  },
+  {
+    "name": "Kovel",
+    "coordinates": { "lat": 51.216667, "lon": 24.716667 },
+    "population": 67575,
+    "terrain_description": "Volyn Oblast on Turiia River; flat Polesian lowland; key rail hub near Polish border; safe from combat."
+  },
+  {
+    "name": "Feodosiia",
+    "coordinates": { "lat": 45.048889, "lon": 35.379167 },
+    "population": 66293,
+    "terrain_description": "Crimean southeast coast; coastal mountain backdrop; port city with historic fortifications; occupied since 2014."
+  },
+  {
+    "name": "Kostiantynivka",
+    "coordinates": { "lat": 48.533333, "lon": 37.716667 },
+    "population": 67350,
+    "terrain_description": "Donetsk Oblast on Kryvyi Torets River; industrial city with glass and metallurgy; hilly terrain; frequent frontline shelling."
+  },
+  {
+    "name": "Nizhyn",
+    "coordinates": { "lat": 51.047222, "lon": 31.880556 },
+    "population": 65830,
+    "terrain_description": "Chernihiv Oblast on Oster River; flat terrain with historic architecture; early war Russian advance route."
+  },
+  {
+    "name": "Smila",
+    "coordinates": { "lat": 49.216667, "lon": 31.866667 },
+    "population": 65675,
+    "terrain_description": "Cherkasy Oblast on Tiasmyn River; flat terrain; rail junction; industrial center."
+  },
+  {
+    "name": "Irpin",
+    "coordinates": { "lat": 50.516667, "lon": 30.25 },
+    "population": 65167,
+    "terrain_description": "Kyiv suburb northwest of capital; Irpin River obstacle with limited bridges; wooded area; site of intense urban combat during 2022 Battle of Kyiv; partially destroyed."
+  },
+  {
+    "name": "Kalush",
+    "coordinates": { "lat": 49.044444, "lon": 24.361111 },
+    "population": 65088,
+    "terrain_description": "Ivano-Frankivsk Oblast on Dniester tributary; Carpathian foothills; chemical industry; western Ukraine."
+  },
+  {
+    "name": "Sheptytskyi",
+    "coordinates": { "lat": 50.383333, "lon": 24.233333 },
+    "population": 64297,
+    "terrain_description": "Lviv Oblast near Polish border; hilly terrain; coal mining town; western region."
+  },
+  {
+    "name": "Boryspil",
+    "coordinates": { "lat": 50.35, "lon": 30.95 },
+    "population": 64117,
+    "terrain_description": "Kyiv Oblast east of capital; flat terrain; site of Ukraine's main international airport; key logistics hub."
+  },
+  {
+    "name": "Dovzhansk",
+    "coordinates": { "lat": 48.083333, "lon": 39.65 },
+    "population": 62691,
+    "terrain_description": "Luhansk Oblast near Russian border; hilly mining terrain; occupied since 2014."
+  },
+  {
+    "name": "Pervomaisk",
+    "coordinates": { "lat": 48.05, "lon": 30.85 },
+    "population": 62426,
+    "terrain_description": "Mykolaiv Oblast on Southern Buh River; flat terrain with river crossing; agricultural region."
+  },
+  {
+    "name": "Korosten",
+    "coordinates": { "lat": 50.95, "lon": 28.65 },
+    "population": 61496,
+    "terrain_description": "Zhytomyr Oblast on Uzh River; wooded Polesian terrain; rail junction; early war Russian advance toward Kyiv."
+  },
+  {
+    "name": "Kolomyia",
+    "coordinates": { "lat": 48.516667, "lon": 25.033333 },
+    "population": 60821,
+    "terrain_description": "Ivano-Frankivsk Oblast on Prut River; Carpathian foothills; Hutsul culture center; safe from combat."
+  },
+  {
+    "name": "Pokrovsk",
+    "coordinates": { "lat": 48.283333, "lon": 37.183333 },
+    "population": 60127,
+    "terrain_description": "Donetsk Oblast; hilly industrial terrain; key logistics hub for Ukrainian forces; frequent Russian attacks; critical defensive position."
+  },
+  {
+    "name": "Stryi",
+    "coordinates": { "lat": 49.25, "lon": 23.85 },
+    "population": 59425,
+    "terrain_description": "Lviv Oblast on Stryi River; Carpathian foothills; important rail junction; western Ukraine."
+  },
+  {
+    "name": "Chornomorsk",
+    "coordinates": { "lat": 46.301667, "lon": 30.656944 },
+    "population": 57983,
+    "terrain_description": "Odesa Oblast southwest of Odesa; Black Sea coast; port city with flat coastal terrain; ferry terminal to Georgia and Turkey."
+  },
+  {
+    "name": "Khartsyzk",
+    "coordinates": { "lat": 48.033333, "lon": 38.15 },
+    "population": 57000,
+    "terrain_description": "Donetsk Oblast; hilly industrial terrain; occupied since 2014."
+  }
+]
