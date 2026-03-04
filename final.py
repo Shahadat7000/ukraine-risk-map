@@ -17,8 +17,7 @@ class UkraineRiskVisualizer:
 
     def __init__(self, data_source='city data ukrine.json'):
         # API credentials
-        self.api_token = os.getenv("NEWSMATICS_TOKEN",
-                                   "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NzIxMTczMDQsInN1YiI6MjYzNSwiZXhwIjoyMDg3NDc3MzA0LjAsInNjb3BlcyI6WyJhbGwiXX0.4729B9HMXHuupfjWU1wn7zm78V4ax4A2jJDipIo-rkQ")
+        self.api_token = os.getenv("NEWSMATICS_TOKEN")
         self.api_endpoint = "https://api.newsmatics.com/v1"
         self.request_headers = {'Authorization': f'Bearer {self.api_token}', 'Accept': 'application/json'}
 
@@ -427,4 +426,5 @@ class UkraineRiskVisualizer:
 
 if __name__ == "__main__":
     visualizer = UkraineRiskVisualizer()
+
     visualizer.render_visualization('ukraine_risk_map.html')
