@@ -78,5 +78,6 @@ Interactive map showing:
 ## Demo
 
 ![Ukraine Risk Map](screenshot.png)
+Live Demo: https://shahadat7000.github.io/ukraine-risk-map/
 
 
