@@ -77,7 +77,7 @@ Interactive map showing:
 - Occupied regions
 ## Demo
 
-![Ukraine Risk Map](screenshot.png)
+![Ukraine Risk Map](Screenshot.png)
 Live Demo: https://shahadat7000.github.io/ukraine-risk-map/
 
 
